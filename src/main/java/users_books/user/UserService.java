@@ -1,42 +1,17 @@
 package users_books.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class UserService {
-    private final UserRepository userRepository;
+public interface UserService {
+    List<UserEntity> getUsers();
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    UserEntity getUser(Long id);
 
-    public List<UserEntity> getUsers() {
-        return userRepository.findAll();
-    }
+    void createUser(UserEntity user);
 
-    public UserEntity getUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found"));
-    }
+    void deleteUser(Long id);
 
-    public void createUser(UserEntity user) {
-        userRepository.save(user);
-    }
+    UserEntity updateUser(Long id, UserEntity user);
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    public UserEntity updateUser(Long id, UserEntity user) {
-        UserEntity update = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found"));
-        update.setFirstName(user.getFirstName());
-        update.setLastName(user.getLastName());
-        update.setEmail(user.getEmail());
-        update.setDescription(user.getDescription());
-
-        return userRepository.save(update);
-    }
+    void deleteUsers();
 }
