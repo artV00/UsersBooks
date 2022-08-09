@@ -5,13 +5,13 @@ import java.util.List;
 public interface BookService {
     List<BookEntity> getBooks();
 
-    BookEntity getBook(Long id);
+    BookEntity getBook(long id);
 
     void createBook(BookEntity book);
 
-    void deleteBook(Long id);
+    void deleteBook(long id);
 
-    BookEntity updateBook(Long id, BookEntity book);
+    BookEntity updateBook(long id, BookEntity book);
 
     void deleteBooks();
 }

@@ -2,6 +2,7 @@ package users_books.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import users_books.customException.NotFoundException;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity getBook(Long id) {
-        return bookRepository.findById(id).orElseThrow(() -> new IllegalStateException("Book not found"));
+    public BookEntity getBook(long id) {
+        return bookRepository.findById(id).orElseThrow(() -> new NotFoundException("Book with id " + id + " are not found"));
     }
 
     @Override
@@ -30,13 +31,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(Long id) {
+    public void deleteBook(long id) {
+        bookRepository.findById(id).orElseThrow(() -> new NotFoundException("Book with id " + id + " are not found"));
         bookRepository.deleteById(id);
     }
 
     @Override
-    public BookEntity updateBook(Long id, BookEntity book) {
-        BookEntity update = bookRepository.findById(id).orElseThrow(() -> new IllegalStateException("Book not found"));
+    public BookEntity updateBook(long id, BookEntity book) {
+        BookEntity update = bookRepository.findById(id).orElseThrow(() -> new NotFoundException("Book with id " + id + " are not found"));
         update.setBookName(book.getBookName());
         update.setAuthorName(book.getAuthorName());
         update.setReleasedYear(book.getReleasedYear());

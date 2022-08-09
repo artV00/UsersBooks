@@ -2,6 +2,7 @@ package users_books.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import users_books.customException.NotFoundException;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found"));
+    public UserEntity getUser(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with id " + id + " are not found"));
     }
 
     @Override
@@ -30,13 +31,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(long id) {
+        userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with id " + id + " are not found"));
         userRepository.deleteById(id);
     }
 
     @Override
-    public UserEntity updateUser(Long id, UserEntity user) {
-        UserEntity update = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found"));
+    public UserEntity updateUser(long id, UserEntity user) {
+        UserEntity update = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with id " + id + " are not found"));
         update.setFirstName(user.getFirstName());
         update.setLastName(user.getLastName());
         update.setEmail(user.getEmail());
