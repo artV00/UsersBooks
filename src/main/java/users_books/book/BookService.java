@@ -7,7 +7,7 @@ public interface BookService {
 
     BookEntity getBook(long id);
 
-    void createBook(BookEntity book);
+    BookEntity createBook(BookEntity book);
 
     void deleteBook(long id);
 

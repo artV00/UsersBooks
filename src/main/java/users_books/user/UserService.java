@@ -7,7 +7,7 @@ public interface UserService {
 
     UserEntity getUser(long id);
 
-    void createUser(UserEntity user);
+    UserEntity createUser(UserEntity user);
 
     void deleteUser(long id);
 
